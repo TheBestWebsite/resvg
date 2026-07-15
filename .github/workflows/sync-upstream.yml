@@ -25,7 +25,7 @@ jobs:
           git config user.email "github-actions[bot]@://github.com"
 
       - name: Add upstream remote
-        run: git remote add upstream https://github.com
+        run: git remote add upstream https://github.com/linebender/resvg
 
       - name: Fetch upstream
         run: git fetch upstream
