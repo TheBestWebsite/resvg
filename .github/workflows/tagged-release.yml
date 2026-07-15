@@ -54,11 +54,11 @@ jobs:
         run: |
           strip -s resvg
           strip -s usvg
-          tar czf resvg-linux-x86_64.tar.gz resvg
-          tar czf usvg-linux-x86_64.tar.gz usvg
+          tar czf resvg-linux-aarch64.tar.gz resvg
+          tar czf usvg-linux-aarch64.tar.gz usvg
           mkdir ../../bin
-          cp resvg-linux-x86_64.tar.gz ../../bin/
-          cp usvg-linux-x86_64.tar.gz ../../bin/
+          cp resvg-linux-aarch64.tar.gz ../../bin/
+          cp usvg-linux-aarch64.tar.gz ../../bin/
 
       - name: Get version
         id: get_version
@@ -96,7 +96,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Toolchain is stable-x86_64-pc-windows-msvc by default. No need to change it.
+      # Toolchain is stable-aarch64-pc-windows-msvc by default. No need to change it.
 
       - name: Build resvg
         env:
@@ -113,8 +113,8 @@ jobs:
         working-directory: target/release
         shell: cmd
         run: |
-          7z a -tzip -mx9 resvg-win64.zip resvg.exe
-          7z a -tzip -mx9 usvg-win64.zip usvg.exe
+          7z a -tzip -mx9 resvg-win-aarch64.zip resvg.exe
+          7z a -tzip -mx9 usvg-win-aarch64.zip usvg.exe
 
       - name: Build thumbnailer
         working-directory: tools/explorer-thumbnailer
@@ -139,8 +139,8 @@ jobs:
       - name: Collect
         run: |
           mkdir bin
-          cp target/release/resvg-win64.zip bin/
-          cp target/release/usvg-win64.zip bin/
+          cp target/release/resvg-win-aarch64.zip bin/
+          cp target/release/usvg-win-aarch64.zip bin/
           cp tools/explorer-thumbnailer/install/resvg-explorer-extension.exe bin/
 
       - name: Upload binaries
