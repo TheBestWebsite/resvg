@@ -28,6 +28,9 @@ jobs:
       - name: Add upstream remote
         run: git remote add upstream https://github.com/linebender/resvg.git
 
+      - name: Add exemption for v0.47.0
+        run: git config --add remote.upstream.fetch '^refs/tags/v0.47.0'
+
       - name: Fetch upstream (including all tags)
         run: git fetch upstream --tags
 
