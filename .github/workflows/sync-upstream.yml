@@ -16,6 +16,7 @@ jobs:
       - name: Checkout your repo
         uses: actions/checkout@v4
         with:
+          repository: linebender/resvg
           fetch-depth: 0
           fetch-tags: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -31,20 +32,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Add upstream remote
-        run: git remote add upstream https://github.com/linebender/resvg.git
+      - name: Add downstream remote
+        run: git remote add downstream https://github.com/TheBestWebsite/resvg-aarch64.git
 
-      - name: Add exemption for v0.47.0
-        run: git config --add remote.upstream.fetch '^refs/tags/v0.47.0'
+      - name: Replace v0.47.0
+        run: git tag -d v0.47.0
 
-      - name: Fetch upstream (including all tags)
-        run: git fetch upstream --tags
+      - name: Fetch downstream (including all tags)
+        run: git fetch downstream --tags
 
-      - name: Rebase onto upstream
+      - name: Rebase onto downstream
         run: |
           git checkout main
-          git rebase upstream/main
-          git push --force-with-lease origin main
+          git rebase downstream/main
+          git push --force-with-lease downstream main
 
       - name: Push tags to your fork
-        run: git push origin --tags
+        run: git push downstream --tags
